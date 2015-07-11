@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.util.Log;
 
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsContract.AccountsEntry;
@@ -30,7 +31,7 @@ public class AccountsDataSource {
         values.put(AccountsEntry.COLUMN_PIC_URI, account.getProfilePicUri().toString());
         values.put(AccountsEntry.COLUMN_TOKEN, account.getAccessToken());
 
-        long newRowId = db.insertOrThrow(AccountsDbHelper.DATABASE_NAME, null, values);
+        long newRowId = db.insertOrThrow(AccountsEntry.TABLE_NAME, null, values);
         db.close();
         return newRowId;
     }
@@ -38,7 +39,7 @@ public class AccountsDataSource {
     public List<SMAccount> getAccounts() {
         db = dbHelper.getReadableDatabase();
 
-        String[] projection = {AccountsEntry.COLUMN_NAME, AccountsEntry.COLUMN_LINK_URI,
+        String[] projection = {AccountsEntry.COLUMN_NAME, AccountsEntry.COLUMN_LINK_URI, AccountsEntry.COLUMN_PLATFORM_NAME,
                 AccountsEntry.COLUMN_PIC_URI, AccountsEntry.COLUMN_TOKEN};
 
         String sortOrder = AccountsEntry.COLUMN_PLATFORM_NAME + " DESC";

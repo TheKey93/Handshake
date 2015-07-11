@@ -10,17 +10,15 @@ public class AccountsDbHelper extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Accounts.db";
 
-    private static final String TEXT_TYPE = " text";
-    private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + AccountsEntry.TABLE_NAME + " (" +
-                    AccountsEntry._ID + " INTEGER PRIMARY KEY autoincrement," +
-                    AccountsEntry.COLUMN_NAME + TEXT_TYPE + COMMA_SEP +
-                    AccountsEntry.COLUMN_PLATFORM_NAME + TEXT_TYPE + COMMA_SEP +
-                    AccountsEntry.COLUMN_LINK_URI + TEXT_TYPE + COMMA_SEP +
-                    AccountsEntry.COLUMN_PIC_URI + TEXT_TYPE + COMMA_SEP +
-                    AccountsEntry.COLUMN_TOKEN + TEXT_TYPE+
-            " )";
+            "CREATE TABLE IF NOT EXISTS " + AccountsEntry.TABLE_NAME + " (" +
+                    AccountsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    AccountsEntry.COLUMN_NAME + " TEXT, " +
+                    AccountsEntry.COLUMN_PLATFORM_NAME + " TEXT, " +
+                    AccountsEntry.COLUMN_LINK_URI + " TEXT, " +
+                    AccountsEntry.COLUMN_PIC_URI + " TEXT, " +
+                    AccountsEntry.COLUMN_TOKEN + " TEXT" +
+            ")";
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + AccountsEntry.TABLE_NAME;
 
@@ -36,6 +34,7 @@ public class AccountsDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }

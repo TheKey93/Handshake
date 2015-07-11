@@ -35,7 +35,6 @@ public class NewAccountAdapter extends RecyclerView.Adapter<NewAccountAdapter.Vi
     public NewAccountAdapter(ArrayList<String> myDataset, Context context) {
         mDataset = myDataset;
         presenter = new NewAccountPresenter(context);
-        presenter.resume();
     }
 
     @Override

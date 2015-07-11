@@ -15,6 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+-include ../proguard-com.twitter.sdk.android.twitter.txt
 
 #GreenRobot EventBus
 -keepclassmembers class ** { public void onEvent*(**); }

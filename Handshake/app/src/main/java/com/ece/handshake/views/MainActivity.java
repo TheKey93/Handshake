@@ -62,6 +62,11 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         NfcAdapter.CreateNdefMessageCallback{
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private static final String TWITTER_KEY = "SScUHc4jfNsporiWTQcKMerBx";
+    private static final String TWITTER_SECRET = "acMW4LyCZpcL0AWGmgfu1MhYkVMQM2ETn7KCeuzKygD2JC1DIi";
+
+
     public CallbackManager mCallbackManager;
     private NfcAdapter mNfcAdapter;
 
@@ -73,7 +78,8 @@ public class MainActivity extends AppCompatActivity
         FacebookSdk.sdkInitialize(this);
 
         mAuthConfig = new TwitterAuthConfig("SScUHc4jfNsporiWTQcKMerBx", "acMW4LyCZpcL0AWGmgfu1MhYkVMQM2ETn7KCeuzKygD2JC1DIi");
-        Fabric.with(this, new Twitter(mAuthConfig));
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(mAuthConfig), new Twitter(authConfig));
     }
 
     @Override
@@ -218,11 +224,10 @@ public class MainActivity extends AppCompatActivity
             setIntent(i);
         }
     }
-
     @Override
-    public void onStop() {
+    public void onPause() {
         EventBus.getDefault().unregister(this);
-        super.onResume();
+        super.onPause();
     }
 
     @Override

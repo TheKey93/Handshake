@@ -42,13 +42,13 @@ public class SMDialogFragment extends DialogFragment {
 
     @Override
     public void onResume() {
-        EventBus.getDefault().post(new PresenterResumeEvent(PRESENTER_NAME));
+        //EventBus.getDefault().post(new PresenterResumeEvent(PRESENTER_NAME));
         super.onResume();
     }
 
     @Override
     public void onStop() {
-        EventBus.getDefault().post(new PresenterPauseEvent(PRESENTER_NAME));
+        //EventBus.getDefault().post(new PresenterPauseEvent(PRESENTER_NAME));
         super.onStop();
     }
 }

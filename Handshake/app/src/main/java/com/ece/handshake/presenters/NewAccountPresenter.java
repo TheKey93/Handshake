@@ -33,6 +33,7 @@ public class NewAccountPresenter implements INewAccountPresenter {
     public NewAccountPresenter(Context context) {
         this.mContext = context;
         this.res = context.getResources();
+        this.resume();
     }
 
     @Override

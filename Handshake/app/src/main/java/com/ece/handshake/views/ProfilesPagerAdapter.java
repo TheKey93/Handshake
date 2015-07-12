@@ -24,7 +24,7 @@ public class ProfilesPagerAdapter extends FragmentStatePagerAdapter {
             default:
                 return null;
         }
-        return null;
+        return new AccountsFragment();
     }
 
     @Override

@@ -34,12 +34,12 @@ public class ProfilesFragment extends Fragment {
         mViewPager = (ViewPager) layout.findViewById(R.id.view_pager);
         mTabLayout = (TabLayout) layout.findViewById(R.id.tab_layout);
 
-        mViewPager.setAdapter(new ProfilesPagerAdapter(getActivity().getSupportFragmentManager(), 3));
-        mTabLayout.setupWithViewPager(mViewPager);
-
         mTabLayout.addTab(mTabLayout.newTab().setText("Social"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Business"));
         mTabLayout.addTab(mTabLayout.newTab().setText("Other"));
+
+        mViewPager.setAdapter(new ProfilesPagerAdapter(getActivity().getSupportFragmentManager(), 3));
+        mTabLayout.setupWithViewPager(mViewPager);
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

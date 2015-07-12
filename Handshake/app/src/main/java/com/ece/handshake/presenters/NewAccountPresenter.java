@@ -58,7 +58,6 @@ public class NewAccountPresenter implements INewAccountPresenter {
     public void onEvent(NewAccountEvent event) {
         AccountsDataSource source = new AccountsDataSource(mContext);
         source.insertConnectedAccount(event.getAccount());
-
     }
 
     public void onEvent(PresenterResumeEvent event) {

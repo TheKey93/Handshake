@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 
 import com.ece.handshake.R;
 import com.ece.handshake.model.data.SMAccount;
+import com.ece.handshake.presenters.BasePresenter;
+import com.ece.handshake.presenters.ConnectedAccountsPresenter;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
 import java.util.ArrayList;
@@ -22,8 +24,16 @@ public class AccountsFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
 
+    private ConnectedAccountsPresenter mPresenter;
+
     public AccountsFragment() {
-        // Required empty public constructor
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mPresenter = new ConnectedAccountsPresenter(getActivity().getApplicationContext());
     }
 
     @Override
@@ -38,12 +48,6 @@ public class AccountsFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        ArrayList<SMAccount> accounts = new ArrayList<>();
-       // accounts.add(new SMAccount(0, "Facebook", "zsherif"));
-        mAdapter = new AccountsAdapter(accounts);
-
-        mRecyclerView.setAdapter(mAdapter);
-
         AddFloatingActionButton addAccountButton = (AddFloatingActionButton) layout.findViewById(R.id.add_account_button);
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +61,12 @@ public class AccountsFragment extends Fragment {
         return layout;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ArrayList<SMAccount> accounts = mPresenter.getConnectedAccounts();
 
+        mAdapter = new AccountsAdapter(accounts);
+        mRecyclerView.setAdapter(mAdapter);
+    }
 }

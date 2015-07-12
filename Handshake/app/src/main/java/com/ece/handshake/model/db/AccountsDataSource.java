@@ -36,7 +36,7 @@ public class AccountsDataSource {
         return newRowId;
     }
 
-    public List<SMAccount> getAccounts() {
+    public ArrayList<SMAccount> getAccounts() {
         db = dbHelper.getReadableDatabase();
 
         String[] projection = {AccountsEntry.COLUMN_NAME, AccountsEntry.COLUMN_LINK_URI, AccountsEntry.COLUMN_PLATFORM_NAME,
@@ -53,7 +53,7 @@ public class AccountsDataSource {
                 null,                                       // don't filter by row groups
                 sortOrder                                   // The sort order
         );
-        List<SMAccount> list = new ArrayList<>();
+        ArrayList<SMAccount> list = new ArrayList<>();
 
         while(c.moveToNext()) {
             SMAccount account = new SMAccount();

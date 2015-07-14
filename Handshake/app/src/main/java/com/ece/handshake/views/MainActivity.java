@@ -1,14 +1,17 @@
 package com.ece.handshake.views;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
@@ -29,7 +32,10 @@ import com.ece.handshake.events.TwitterLoginEvent;
 import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.R;
 import com.ece.handshake.helper.SharedPreferencesManager;
+import com.ece.handshake.helper.UriDeserializer;
+import com.ece.handshake.helper.UriSerializer;
 import com.ece.handshake.model.data.SMAccount;
+import com.ece.handshake.model.db.AccountsDataSource;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -39,6 +45,9 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -50,9 +59,17 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import io.fabric.sdk.android.Fabric;
@@ -183,9 +200,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
-        String text = ("Zeki Sherif");
+        AccountsDataSource source = new AccountsDataSource(this);
+        ArrayList<SMAccount> accounts = source.getAccounts();
+        Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriSerializer()).create();
+        String data = gson.toJson(accounts);
+
         NdefMessage msg = new NdefMessage(
-                new NdefRecord[] { createMimeRecord("application/vnd.com.ece.handshake.beam", text.getBytes())
+                new NdefRecord[] { createMimeRecord("application/vnd.com.ece.handshake.beam", data.getBytes())
                         /**
                          * The Android Application Record (AAR) is commented out. When a device
                          * receives a push with an AAR in it, the application specified in the AAR
@@ -247,10 +268,18 @@ public class MainActivity extends AppCompatActivity
         // record 0 contains the MIME type, record 1 is the AAR, if present
         System.out.println(new String(msg.getRecords()[0].getPayload()));
 
-        Intent newContactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
+        /*Intent newContactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
         newContactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
         newContactIntent.putExtra(ContactsContract.Intents.Insert.NAME, new String(msg.getRecords()[0].getPayload()));
-        startActivity(newContactIntent);
+        startActivity(newContactIntent);*/
+        String data = new String(msg.getRecords()[0].getPayload());
+        Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriDeserializer()).create();
+
+        ArrayList<SMAccount> pendingConnections = new ArrayList<>();
+        pendingConnections.addAll(Arrays.asList((gson.fromJson(data, SMAccount[].class))));
+        AccountsDataSource source = new AccountsDataSource(this);
+        source.insertPendingConnection(pendingConnections);
+
     }
 
     /**

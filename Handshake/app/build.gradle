@@ -48,4 +48,6 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:1.6.0@aar') {
         transitive = true;
     }
+
+    compile 'com.google.code.gson:gson:2.3.1'
 }

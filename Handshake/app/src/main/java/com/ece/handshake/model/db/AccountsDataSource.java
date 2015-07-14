@@ -36,6 +36,20 @@ public class AccountsDataSource {
         return newRowId;
     }
 
+    public void insertPendingConnection(ArrayList<SMAccount> accounts) {
+        db = dbHelper.getWritableDatabase();
+
+        for(SMAccount account : accounts) {
+            ContentValues values = new ContentValues();
+            values.put(AccountsEntry.COLUMN_NAME, account.getName());
+            values.put(AccountsEntry.COLUMN_PLATFORM_NAME, account.getPlatformName());
+            values.put(AccountsEntry.COLUMN_LINK_URI, account.getLinkUri().toString());
+            values.put(AccountsEntry.COLUMN_PIC_URI, account.getProfilePicUri().toString());
+            values.put(AccountsEntry.COLUMN_TOKEN, account.getAccessToken());
+            db.insertOrThrow(AccountsEntry.TABLE_NAME, null, values);
+        }
+    }
+
     public ArrayList<SMAccount> getAccounts() {
         db = dbHelper.getReadableDatabase();
 

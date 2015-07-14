@@ -2,7 +2,9 @@ package com.ece.handshake.model.data;
 
 import android.net.Uri;
 
-public class SMAccount {
+import java.io.Serializable;
+
+public class SMAccount implements Serializable{
     private String mName;
     private String mPlatformName;
     private Uri mLinkUri;

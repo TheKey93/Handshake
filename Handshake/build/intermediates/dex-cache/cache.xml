@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-3a0d09991c218526ed95df01d2c14da791c54a47.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.twitter.sdk.android\tweet-ui\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73e3dcd1c6363340af17e78967e6ed27d585d52d">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-7bdf86aa5ea0c2325ee5fb93d08b9214aa22105a.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-5336cc153a27d3be8cf4a6e769884c3073fcf8c0.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-76a40241f1044604523e59f71676e0e51b10d100.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-59324013530a5a19df9982e6121810e2697b4b20.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-57d64fc502383ce79c812eec1da2cfe7dc782277.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\.gradle\caches\modules-2\files-2.1\com.squareup.picasso\picasso\2.5.2\7446d06ec8d4f7ffcc53f1da37c95f200dcb9387\picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\picasso-2.5.2-c51e260a4ce04cfd07ee2aad86160149b3b03828.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-7ec137bb4856876605405cdb6cbaa21c2e526751.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-fb86b41026941775f9adf4625c0f283aa7a69294.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-f9fa7b01295c4842ee1740b63937bf5eb26bc777.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-f787f14bb00b9f9a60a77d01a772c51ccfaa42ae.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-b8f005411f6994feebe1ae78a3d651ef175d8ab9.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.6.1\efb0a36546aa8857ab8df358b106c1817e03cbee\retrofit-1.6.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="efb0a36546aa8857ab8df358b106c1817e03cbee">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\retrofit-1.6.1-fbe0fb78c14a9aae479eaf50f1d51daf1ff3acc3.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-e116d24b6b750267e6f780901a7f411b38eced2a.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.digits.sdk.android\digits\1.6.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="85dbcb10f2e04aa08bcd7b4405e4a7fec615760d">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-67956f163a3bcab891b79bd71d9a64f910fc5fbb.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-10dcc9febdc48906c8b4c11fca918d02cbbd5572.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-76a9e4f0016d79c9ac983a458ac2eefa19f9c748.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-ce614a39c3ba2f76561fdc3c4b6d2e2dc2267899.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\gson-2.3.1-99fd9702b553f5bac18cc9c885673082fded4513.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\.gradle\caches\modules-2\files-2.1\de.greenrobot\eventbus\2.4.0\ddd166d01b3158d1c00576d29f7ed15c030df719\eventbus-2.4.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ddd166d01b3158d1c00576d29f7ed15c030df719">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\eventbus-2.4.0-638f6d75319103752a834d839683674103ab39c6.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-0ac3c9591d0e3ed22a514965680231d5155979a7.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-b846c871a78d6ccce7266fce784f626fd2048682.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-1a519397def62296cbd8b62a9be272a528495b05.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-0493aae4e0a18513bd218993e5f050f8f5a40131.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-cb24530c0b0774c4b98bdf50241ea0402e02d536.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-1afa49018f6da187f3a04b0a49338a817e740b8b.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-c01b083b475ac4af5a9d89e16ea27e823f3869b3.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-b7991173a1b6d8b40c16c37a79c1e888fd4d9c8d.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-d677eea89bcda3709fd2ed2f955b7de8d90bdeb8.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-464ec1019f482365bceafa7c7369a0c2d6f58ddf.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-c7b72ee4209b51a1df1b2405e8e312ae0d3a4014.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-9917b623d1b5ae158f3fbb44611656ff87a0fddb.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.twitter.sdk.android\twitter\1.6.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2bd26de12f5ea29d4cabc6e84045de04cb615680">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-fc8a1ee49bcab5852072dfd221bff410c97013c3.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.1.4\129874135e6081269ace2312092031558865de12\bolts-android-1.1.4.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="129874135e6081269ace2312092031558865de12">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\bolts-android-1.1.4-f0c1137f795ab98be0b5b4426460afd1b227e10a.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-ff1441a57506c039870afc6f10716cd02e39479d.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\io.fabric.sdk.android\fabric\1.3.4\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f7dc6b43d7c7f3d94e98531aef88269f9ed2a37b">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-4fbb9231b164628384990d6067c93cedfdf6e198.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.getbase\floatingactionbutton\1.9.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f2b8a750df2a5d485d0c40b379b44371c5e6d98d">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-9d53cf2f20a8f79271ab46be2544e5a53cd32886.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.twitter.sdk.android\tweet-composer\0.8.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="157015930713d0411b69a76606f306c9a2c11af3">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-5d6789c52c6645ff1f53e58cda2c48a4adfbcadb.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-7fef68b7a86ab7ed26fe5448b0be195551a848d2.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.twitter.sdk.android\twitter-core\1.4.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a9f5c30c22dc9a623078f85000c787cd191aa35f">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-a2bbba8f35b01f54ece3445fb4e05811b55dd822.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-e8e6250aebb750e85a7ca5c7ec8bbb8f6ac71d0a.jar" />
+    </item>
+    <item
+        jar="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
+        <dex dex="C:\Users\TheKey\git\Handshake\Handshake\app\build\intermediates\pre-dexed\debug\classes-51e6a233c9bc13bab3760a0d82c1d659e438b185.jar" />
+    </item>
+
+</items>

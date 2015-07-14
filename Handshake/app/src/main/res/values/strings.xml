@@ -38,11 +38,15 @@
     <string name="drawer.title.profiles">NFC Profiles</string>
     <string name="title_activity_maps">Map</string>
 
-    <!-- Settings Page -->
+    <string name="personalInformation">Manage Personal Information</string>
     <string name="pref_edit_name">Name</string>
     <string name="pref_edit_contact_number">Contact Number</string>
     <string name="pref_edit_email">Email Address</string>
     <string name="pref_edit_address">Residential Address</string>
-    <string name="personalInformation">Manage Personal Information</string>
     
+
+
+
+
+
 </resources>

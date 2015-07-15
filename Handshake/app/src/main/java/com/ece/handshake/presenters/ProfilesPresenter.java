@@ -20,7 +20,7 @@ public class ProfilesPresenter implements IProfilesPresenter{
     @Override
     public ArrayList<SMAccount> getConnectedAccounts() {
         AccountsDataSource source = new AccountsDataSource(mContext);
-        return source.getAccounts();
+        return source.getConnectedAccounts();
     }
 
     @Override

@@ -22,7 +22,7 @@ public class ConnectedAccountsPresenter extends BasePresenter implements IConnec
     @Override
     public ArrayList<SMAccount> getConnectedAccounts() {
         AccountsDataSource source = new AccountsDataSource(mContext);
-        return source.getAccounts();
+        return source.getConnectedAccounts();
     }
 
     @Override

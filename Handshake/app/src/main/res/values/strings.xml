@@ -36,6 +36,8 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer.title.profiles">NFC Profiles</string>
+    <string name="drawer.title.pending_connections">Pending Connections</string>
+    <string name="drawer.title.maps">Maps</string>
 
     <!-- Profiles Page -->
     <string-array name="profile_tabs">

@@ -11,6 +11,16 @@
             android:icon="@drawable/ic_setting_dark"
             android:title="@string/drawer.title.profiles"/>
         <item
+            android:id="@+id/drawer_item_pending_connections"
+            android:icon="@drawable/ic_setting_dark"
+            android:title="@string/drawer.title.pending_connections">
+        </item>
+        <item
+            android:id="@+id/drawer_item_maps"
+            android:icon="@drawable/ic_setting_dark"
+            android:title="@string/drawer.title.maps">
+        </item>
+        <item
             android:id="@+id/drawer_item_settings"
             android:icon="@drawable/ic_setting_dark"
             android:title="@string/drawer.title.settings"/>

@@ -31,6 +31,7 @@ import com.ece.handshake.R;
 import com.ece.handshake.helper.SharedPreferencesManager;
 import com.ece.handshake.helper.UriDeserializer;
 import com.ece.handshake.helper.UriSerializer;
+import com.ece.handshake.model.data.Connection;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsDataSource;
 import com.facebook.AccessToken;
@@ -48,9 +49,12 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.AccountService;
 
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
@@ -132,7 +136,7 @@ public class MainActivity extends AppCompatActivity
                         Profile.setCurrentProfile(newProfile);
                         Toast.makeText(getApplicationContext(), "Succesfull Facebook Login", Toast.LENGTH_LONG).show();
                         Profile profile = Profile.getCurrentProfile();
-                        SMAccount account = new SMAccount(profile.getName(), getString(R.string.platform_name_facebook), profile.getLinkUri(), profile.getProfilePictureUri(64, 64), AccessToken.getCurrentAccessToken().getToken());
+                        SMAccount account = new SMAccount(profile.getFirstName(), profile.getLastName(), getString(R.string.platform_name_facebook), profile.getLinkUri(), profile.getProfilePictureUri(64, 64), AccessToken.getCurrentAccessToken().getToken());
                         EventBus.getDefault().post(new NewAccountEvent(account));
                         this.stopTracking();
                     }
@@ -172,8 +176,31 @@ public class MainActivity extends AppCompatActivity
         mTwitterLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
             public void success(Result<TwitterSession> result) {
-                Toast.makeText(getApplicationContext(), "Successfully Twitter login", Toast.LENGTH_LONG).show();
-                
+                Toast.makeText(getApplicationContext(), "Successful Twitter login", Toast.LENGTH_LONG).show();
+                Twitter.getApiClient().getAccountService().verifyCredentials(true, false, new Callback<User>() {
+                    @Override
+                    public void success(Result<User> result) {
+                        User user = result.data;
+                        final String[] name = user.name.split(" ");
+                        String firstName, lastName;
+                        firstName = name[0];
+
+                        if(name.length == 2)
+                            lastName = name[1];
+                        else
+                            lastName = "";
+
+                        final Uri profileUri = Uri.parse(String.format("twitter://user?user_id=%s", Long.toString(user.getId())));
+                        final Uri profilePicUri = Uri.parse(user.profileImageUrl);
+                        SMAccount account = new SMAccount(firstName, lastName, getString(R.string.platform_name_twitter), profileUri, profilePicUri, "");
+                        EventBus.getDefault().post(new NewAccountEvent(account));
+                    }
+
+                    @Override
+                    public void failure(TwitterException e) {
+
+                    }
+                });
             }
 
             @Override
@@ -188,7 +215,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public NdefMessage createNdefMessage(NfcEvent event) {
         AccountsDataSource source = new AccountsDataSource(this);
-        ArrayList<SMAccount> accounts = source.getAccounts();
+        ArrayList<SMAccount> accounts = source.getConnectedAccounts();
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriSerializer()).create();
         String data = gson.toJson(accounts);
 
@@ -262,7 +289,7 @@ public class MainActivity extends AppCompatActivity
         String data = new String(msg.getRecords()[0].getPayload());
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriDeserializer()).create();
 
-        ArrayList<SMAccount> pendingConnections = new ArrayList<>();
+        ArrayList<Connection> pendingConnections = new ArrayList<>();
         pendingConnections.addAll(Arrays.asList((gson.fromJson(data, SMAccount[].class))));
         AccountsDataSource source = new AccountsDataSource(this);
         source.insertPendingConnection(pendingConnections);
@@ -290,6 +317,12 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.drawer_item_connection_profiles:
                 fragmentManager.beginTransaction().replace(R.id.container, new ProfileTabFragment()).commit();
+                break;
+            case R.id.drawer_item_pending_connections:
+                //TODO: Make Settings page
+                break;
+            case R.id.drawer_item_maps:
+                //TODO: Make Settings page
                 break;
             case R.id.drawer_item_settings:
                 //TODO: Make Settings page

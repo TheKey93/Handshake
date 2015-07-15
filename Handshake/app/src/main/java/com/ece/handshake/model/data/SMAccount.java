@@ -4,27 +4,22 @@ import android.net.Uri;
 
 import java.io.Serializable;
 
-public class SMAccount implements Serializable{
-    private String mName;
+public class SMAccount extends Connection implements Serializable{
     private String mPlatformName;
     private Uri mLinkUri;
-    private Uri mProfilePicUri;
     private String mAccessToken;
 
-    public SMAccount() {}
+    public SMAccount() {
+        super();
+    }
 
-    public SMAccount(String name, String platformName, Uri linkUri, Uri profilePictureUri, String accessToken) {
-        mName = name;
+    public SMAccount(String firstName, String lastName, String platformName, Uri linkUri, Uri profilePictureUri, String accessToken) {
+        super(firstName, lastName, profilePictureUri);
         mPlatformName = platformName;
         mLinkUri = linkUri;
-        mProfilePicUri = profilePictureUri;
         mAccessToken = accessToken;
     }
-
-    public String getName() {
-        return mName;
-    }
-
+    
     public String getPlatformName() {
         return mPlatformName;
     }
@@ -33,16 +28,8 @@ public class SMAccount implements Serializable{
         return mLinkUri;
     }
 
-    public Uri getProfilePicUri() {
-        return mProfilePicUri;
-    }
-
     public String getAccessToken() {
         return mAccessToken;
-    }
-
-    public void setName(String mName) {
-        this.mName = mName;
     }
 
     public void setPlatformName(String mPlatformName) {
@@ -51,10 +38,6 @@ public class SMAccount implements Serializable{
 
     public void setLinkUri(Uri mLinkUri) {
         this.mLinkUri = mLinkUri;
-    }
-
-    public void setProfilePicUri(Uri mProfilePicUri) {
-        this.mProfilePicUri = mProfilePicUri;
     }
 
     public void setAccessToken(String mAccessToken) {

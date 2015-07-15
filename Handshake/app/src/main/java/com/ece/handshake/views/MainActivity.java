@@ -1,9 +1,6 @@
 package com.ece.handshake.views;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -17,8 +14,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -49,16 +44,12 @@ import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
-import com.twitter.sdk.android.core.services.AccountService;
 
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -76,18 +67,15 @@ public class MainActivity extends AppCompatActivity
 
 
     public CallbackManager mCallbackManager;
-    private NfcAdapter mNfcAdapter;
 
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private TwitterAuthConfig mAuthConfig;
     private void initPlatforms() {
         FacebookSdk.sdkInitialize(this);
 
-        mAuthConfig = new TwitterAuthConfig("SScUHc4jfNsporiWTQcKMerBx", "acMW4LyCZpcL0AWGmgfu1MhYkVMQM2ETn7KCeuzKygD2JC1DIi");
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(mAuthConfig), new Twitter(authConfig));
+        Fabric.with(this, new Twitter(authConfig));
     }
 
     @Override
@@ -109,18 +97,19 @@ public class MainActivity extends AppCompatActivity
         NavigationView navView = (NavigationView) findViewById(R.id.navigation);
         navView.setNavigationItemSelectedListener(this);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
 
         /************ NFC Setup ****************/
-        mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
-        if (mNfcAdapter == null) {
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter == null) {
             Toast.makeText(this, "NFC is not available", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-        mNfcAdapter.setNdefPushMessageCallback(this, this);
+        nfcAdapter.setNdefPushMessageCallback(this, this);
     }
 
     private void initCallbacks() {
@@ -171,6 +160,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     TwitterLoginButton mTwitterLoginButton;
+
+    @SuppressWarnings("unused")
     public void onEvent(TwitterLoginEvent event) {
         mTwitterLoginButton = new TwitterLoginButton(this);
         mTwitterLoginButton.setCallback(new Callback<TwitterSession>() {
@@ -219,7 +210,7 @@ public class MainActivity extends AppCompatActivity
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriSerializer()).create();
         String data = gson.toJson(accounts);
 
-        NdefMessage msg = new NdefMessage(
+        return new NdefMessage(
                 new NdefRecord[] { createMimeRecord("application/vnd.com.ece.handshake.beam", data.getBytes())
                         /**
                          * The Android Application Record (AAR) is commented out. When a device
@@ -231,7 +222,6 @@ public class MainActivity extends AppCompatActivity
                          */
                         //,NdefRecord.createApplicationRecord("com.example.android.beam")
                 });
-        return msg;
     }
 
     @Override
@@ -299,12 +289,11 @@ public class MainActivity extends AppCompatActivity
     /**
      * Creates a custom MIME type encapsulated in an NDEF record
      *
-     * @param mimeType
+     * @param mimeType : type of data
      */
     public NdefRecord createMimeRecord(String mimeType, byte[] payload) {
         byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCII"));
-        NdefRecord mimeRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
-        return mimeRecord;
+        return new NdefRecord(NdefRecord.TNF_MIME_MEDIA, mimeBytes, new byte[0], payload);
     }
 
     @Override
@@ -362,7 +351,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void facebookHash() {
+    /*private void facebookHash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.ece.handshake",
@@ -375,6 +364,6 @@ public class MainActivity extends AppCompatActivity
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
 
         }
-    }
+    }*/
 
 }

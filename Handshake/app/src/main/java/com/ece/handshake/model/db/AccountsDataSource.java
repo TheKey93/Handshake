@@ -108,7 +108,7 @@ public class AccountsDataSource {
         String[] projection = {PendingConnectionEntry.FIRST_NAME, PendingConnectionEntry.LAST_NAME, PendingConnectionEntry.LINK_URI, PendingConnectionEntry.PLATFORM_NAME,
                 PendingConnectionEntry.PIC_URI, PendingConnectionEntry.TOKEN, PendingConnectionEntry.TIME_ENTERED};
 
-        String sortOrder = AccountsEntry.PLATFORM_NAME + " DESC";
+        String sortOrder = PendingConnectionEntry.TIME_ENTERED + " DESC";
 
         Cursor c = db.query(
                 PendingConnectionEntry.TABLE_NAME,  // The table to query

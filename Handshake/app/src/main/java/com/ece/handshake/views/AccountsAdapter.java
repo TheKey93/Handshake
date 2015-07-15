@@ -1,27 +1,17 @@
 package com.ece.handshake.views;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ece.handshake.R;
 import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.model.data.SMAccount;
-import com.facebook.Profile;
-import com.facebook.login.widget.ProfilePictureView;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -41,7 +31,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
             mPlatformImage = (CircleImageView) v.findViewById(R.id.platform_image);
             mProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
-            mAccountUserId = (TextView) v.findViewById(R.id.account_user_id);
+            mAccountUserId = (TextView) v.findViewById(R.id.name);
         }
     }
 

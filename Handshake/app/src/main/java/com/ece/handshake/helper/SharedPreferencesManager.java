@@ -32,7 +32,6 @@ public class SharedPreferencesManager {
     private final static String PINTEREST_CONNNECTED = "isPinterestConnected";
     private final static String GOOGLEPLUS_CONNNECTED = "isGooglePlusConnected";
 
-
     public static void saveBasicInfo(Context context, Map<String, String> values) {
         SharedPreferences sharedPrefs = context.getSharedPreferences(BASIC_USER_INFO, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -74,5 +73,18 @@ public class SharedPreferencesManager {
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putBoolean(platform, true);
         editor.commit();
+    }
+
+    /***************************************** Profiles *******************************************/
+    public static void togglePlatformInProfile(final Context context, final String profile, final String platform, final boolean isEnabled) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(platform, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putBoolean(profile, isEnabled);
+        editor.commit();
+    }
+
+    public static boolean isPlatformEnabledForProfile(final Context context, final String platform, final String profile) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(profile, Context.MODE_PRIVATE);
+        return sharedPrefs.getBoolean(platform, false);
     }
 }

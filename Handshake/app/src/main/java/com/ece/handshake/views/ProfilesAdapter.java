@@ -20,44 +20,48 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHolder> implements IProfilesView{
+public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHolder>{
     private ArrayList<SMAccount> mDataset;
     private ProfilesPresenter mPresenter;
     private final Context mContext;
+    private final String mProfileName;
 
-    public ProfilesAdapter(final Context context, ArrayList<SMAccount> myDataset) {
+    public ProfilesAdapter(final Context context, ArrayList<SMAccount> myDataset, final String profileName, ProfilesPresenter presenter) {
         mDataset = myDataset;
-        mPresenter = new ProfilesPresenter(context, this);
+        mPresenter = presenter;
         mContext = context;
+        mProfileName = profileName;
+    }
+
+    public SMAccount getAccount(final int position) {
+        return mDataset.get(position);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_row, parent, false);
         return new ViewHolder(v);
-
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final SMAccount account = mDataset.get(position);
-        holder.mAccountUserId.setText(account.getName());
+        holder.mName.setText(account.getName());
         holder.mPlatformName.setText(account.getPlatformName());
         holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
 
         //TODO: Use Placeholder if no image or error
         Picasso.with(mContext).load(account.getProfilePicUri()).into(holder.mProfileImage);
 
+        final String platform = account.getPlatformName();
+        boolean test = mPresenter.isPlatformEnabledForProfile(platform, mProfileName);
+        holder.mSwitch.setChecked(mPresenter.isPlatformEnabledForProfile(platform, mProfileName));
         holder.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    mPresenter.enablePlatform(account.getPlatformName(), position);
-                else
-                    mPresenter.disablePlatform(account.getPlatformName(), position);
+                mPresenter.togglePlatform(account.getPlatformName(), position, mProfileName, isChecked);
             }
         });
-
     }
 
     @Override
@@ -65,20 +69,10 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
         return mDataset.size();
     }
 
-    @Override
-    public void highlightPlatformRowGreen(int rowPosition) {
-
-    }
-
-    @Override
-    public void highlightPlatformRowRed(int rowPosition) {
-
-    }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView mPlatformImage;
         private TextView mPlatformName;
-        private TextView mAccountUserId;
+        private TextView mName;
         private SwitchCompat mSwitch;
         private CircleImageView mProfileImage;
 
@@ -87,7 +81,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
             super(v);
             mPlatformImage = (ImageView) v.findViewById(R.id.platform_image);
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
-            mAccountUserId = (TextView) v.findViewById(R.id.account_user_id);
+            mName = (TextView) v.findViewById(R.id.name);
             mSwitch = (SwitchCompat) v.findViewById(R.id.platform_enabled_switch);
             mProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         }

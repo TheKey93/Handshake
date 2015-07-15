@@ -2,6 +2,7 @@ package com.ece.handshake.presenters;
 
 import android.content.Context;
 
+import com.ece.handshake.helper.SharedPreferencesManager;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsDataSource;
 import com.ece.handshake.views.IProfilesView;
@@ -24,13 +25,13 @@ public class ProfilesPresenter implements IProfilesPresenter{
     }
 
     @Override
-    public void enablePlatform(String platformName, int rowPosition) {
-        //TODO: Save settings to sharedpreferences under profile name
-        //mView.highlightPlatformRowGreen();
+    public void togglePlatform(final String platformName, final int rowPosition, String profileName, boolean isEnabled) {
+        SharedPreferencesManager.togglePlatformInProfile(mContext, platformName, profileName, isEnabled);
+        mView.togglePlatformToast(rowPosition, isEnabled);
     }
 
     @Override
-    public void disablePlatform(String platformName, int rowPosition) {
-        //mView.highlightPlatformRowRed();
+    public boolean isPlatformEnabledForProfile(String platform, String profileName) {
+        return SharedPreferencesManager.isPlatformEnabledForProfile(mContext, platform, profileName);
     }
 }

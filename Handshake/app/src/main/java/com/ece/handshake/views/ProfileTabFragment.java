@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.ece.handshake.R;
 import com.ece.handshake.model.data.SMAccount;
@@ -28,13 +29,6 @@ public class ProfileTabFragment extends Fragment {
 
     public ProfileTabFragment() {
 
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //ActionBar actionBar = getActivity().getActionBar();
-       // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
 
     @Override
@@ -87,6 +81,7 @@ public class ProfileTabFragment extends Fragment {
 
             Bundle args = new Bundle();
             args.putInt(POSITION, position);
+            fragment.setArguments(args);
             return fragment;
         }
 
@@ -106,21 +101,21 @@ public class ProfileTabFragment extends Fragment {
             presenter = new ProfilesPresenter(getActivity(), this);
 
             Bundle bundle = getArguments();
+            String currentProfile = "";
+
+            if (bundle != null)
+                currentProfile = getResources().getStringArray(R.array.profile_tabs)[bundle.getInt(POSITION)];
 
             ArrayList<SMAccount> accounts = presenter.getConnectedAccounts();
 
-            mAdapter = new ProfilesAdapter(getActivity(), accounts);
+            mAdapter = new ProfilesAdapter(getActivity(), accounts, currentProfile, presenter);
             mRecyclerView.setAdapter(mAdapter);
         }
 
         @Override
-        public void highlightPlatformRowGreen(int rowPosition) {
-
-        }
-
-        @Override
-        public void highlightPlatformRowRed(int rowPosition) {
-
+        public void togglePlatformToast(final int rowPosition, final boolean isEnabled) {
+            final String msg = String.format("%s has been %s in this profile", ((ProfilesAdapter)mRecyclerView.getAdapter()).getAccount(rowPosition).getPlatformName(), isEnabled ? "enabled" : "disabled");
+            Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         }
     }
 }

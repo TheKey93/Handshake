@@ -10,14 +10,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.facebook.login.widget.ProfilePictureView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
         <ImageView
             android:id="@+id/platform_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            tools:ignore="ContentDescription"
-            android:src="@drawable/facebook_icon"/>
+            android:layout_toRightOf="@id/profile_image"
+            android:layout_toEndOf="@id/profile_image"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
+            tools:ignore="ContentDescription"/>
         <TextView
             android:id="@+id/platform_name"
             android:layout_width="wrap_content"
@@ -26,7 +34,6 @@
             android:layout_toEndOf="@id/platform_image"
             android:layout_marginLeft="12dp"
             android:layout_marginStart="12dp"
-            android:text="Facebook"
             android:layout_centerVertical="true"/>
         <TextView
             android:id="@+id/account_user_id"
@@ -36,8 +43,7 @@
             android:layout_toEndOf="@id/platform_name"
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"
-            android:layout_marginStart="12dp"
-            android:text="userId"/>
+            android:layout_marginStart="12dp"/>
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/platform_enabled_switch"
             android:layout_width="wrap_content"

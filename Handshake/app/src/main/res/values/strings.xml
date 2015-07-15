@@ -37,5 +37,12 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="drawer.title.profiles">NFC Profiles</string>
 
+    <!-- Profiles Page -->
+    <string-array name="profile_tabs">
+        <item> Social </item>
+        <item> Business </item>
+        <item> Custom </item>
+    </string-array>
+
 
 </resources>

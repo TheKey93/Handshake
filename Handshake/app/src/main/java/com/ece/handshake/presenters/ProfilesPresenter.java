@@ -2,13 +2,25 @@ package com.ece.handshake.presenters;
 
 import android.content.Context;
 
+import com.ece.handshake.model.data.SMAccount;
+import com.ece.handshake.model.db.AccountsDataSource;
 import com.ece.handshake.views.IProfilesView;
 
-public class ProfilesPresenter implements  IProfilesPresenter{
+import java.util.ArrayList;
+
+public class ProfilesPresenter implements IProfilesPresenter{
     private IProfilesView mView;
+    private Context mContext;
 
     public ProfilesPresenter(Context context, IProfilesView profilesView) {
         this.mView = profilesView;
+        this.mContext = context;
+    }
+
+    @Override
+    public ArrayList<SMAccount> getConnectedAccounts() {
+        AccountsDataSource source = new AccountsDataSource(mContext);
+        return source.getAccounts();
     }
 
     @Override

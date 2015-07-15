@@ -43,6 +43,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.getbase:floatingactionbutton:1.9.0'
     compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'io.karim:materialtabs:2.0.2'
 
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile('com.twitter.sdk.android:twitter:1.6.0@aar') {

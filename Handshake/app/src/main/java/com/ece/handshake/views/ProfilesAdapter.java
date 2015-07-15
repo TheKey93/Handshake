@@ -15,6 +15,8 @@ import com.ece.handshake.R;
 import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.presenters.ProfilesPresenter;
+import com.facebook.Profile;
+import com.facebook.login.widget.ProfilePictureView;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
     private ArrayList<SMAccount> mDataset;
     private ProfilesPresenter mPresenter;
 
-    public ProfilesAdapter(ArrayList<SMAccount> myDataset, Context context) {
+    public ProfilesAdapter(Context context, ArrayList<SMAccount> myDataset) {
         mDataset = myDataset;
         mPresenter = new ProfilesPresenter(context, this);
     }
@@ -36,19 +38,25 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final SMAccount row = mDataset.get(position);
-        holder.mAccountUserId.setText(row.getName());
-        holder.mPlatformName.setText(row.getPlatformName());
-        //holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(row.getPlatformImgId()));
+        final SMAccount account = mDataset.get(position);
+        holder.mAccountUserId.setText(account.getName());
+        holder.mPlatformName.setText(account.getPlatformName());
+        holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
+
+        Profile profile = Profile.getCurrentProfile();
+        if (profile != null)
+            holder.mProfileImage.setProfileId(profile.getId());
+
         holder.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked)
-                    mPresenter.enablePlatform(row.getPlatformName(), position);
+                    mPresenter.enablePlatform(account.getPlatformName(), position);
                 else
-                    mPresenter.disablePlatform(row.getPlatformName(), position);
+                    mPresenter.disablePlatform(account.getPlatformName(), position);
             }
         });
+
     }
 
     @Override
@@ -72,6 +80,8 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
         private TextView mAccountUserId;
         private SwitchCompat mSwitch;
         private CardView  mCardView;
+        private ProfilePictureView mProfileImage;
+
 
         public ViewHolder(View v) {
             super(v);
@@ -80,6 +90,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
             mAccountUserId = (TextView) v.findViewById(R.id.account_user_id);
             mSwitch = (SwitchCompat) v.findViewById(R.id.platform_enabled_switch);
             mCardView = (CardView) v.findViewById(R.id.card_view);
+            mProfileImage = (ProfilePictureView) v.findViewById(R.id.profile_image);
         }
     }
 }

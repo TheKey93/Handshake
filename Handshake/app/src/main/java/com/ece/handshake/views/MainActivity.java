@@ -1,6 +1,5 @@
 package com.ece.handshake.views;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,9 +10,7 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
-import android.os.Parcel;
 import android.os.Parcelable;
-import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -47,29 +44,19 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.User;
 
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import io.fabric.sdk.android.Fabric;
@@ -302,7 +289,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().replace(R.id.container, new AccountsFragment()).commit();
                 break;
             case R.id.drawer_item_connection_profiles:
-                fragmentManager.beginTransaction().replace(R.id.container, new ProfilesFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, new ProfileTabFragment()).commit();
                 break;
             case R.id.drawer_item_settings:
                 //TODO: Make Settings page

@@ -1,7 +1,6 @@
 package com.ece.handshake.views;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -15,18 +14,21 @@ import com.ece.handshake.R;
 import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.presenters.ProfilesPresenter;
-import com.facebook.Profile;
-import com.facebook.login.widget.ProfilePictureView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHolder> implements IProfilesView{
     private ArrayList<SMAccount> mDataset;
     private ProfilesPresenter mPresenter;
+    private final Context mContext;
 
-    public ProfilesAdapter(Context context, ArrayList<SMAccount> myDataset) {
+    public ProfilesAdapter(final Context context, ArrayList<SMAccount> myDataset) {
         mDataset = myDataset;
         mPresenter = new ProfilesPresenter(context, this);
+        mContext = context;
     }
 
     @Override
@@ -43,9 +45,8 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
         holder.mPlatformName.setText(account.getPlatformName());
         holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
 
-        Profile profile = Profile.getCurrentProfile();
-        if (profile != null)
-            holder.mProfileImage.setProfileId(profile.getId());
+        //TODO: Use Placeholder if no image or error
+        Picasso.with(mContext).load(account.getProfilePicUri()).into(holder.mProfileImage);
 
         holder.mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -79,8 +80,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
         private TextView mPlatformName;
         private TextView mAccountUserId;
         private SwitchCompat mSwitch;
-        private CardView  mCardView;
-        private ProfilePictureView mProfileImage;
+        private CircleImageView mProfileImage;
 
 
         public ViewHolder(View v) {
@@ -89,8 +89,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
             mAccountUserId = (TextView) v.findViewById(R.id.account_user_id);
             mSwitch = (SwitchCompat) v.findViewById(R.id.platform_enabled_switch);
-            mCardView = (CardView) v.findViewById(R.id.card_view);
-            mProfileImage = (ProfilePictureView) v.findViewById(R.id.profile_image);
+            mProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
         }
     }
 }

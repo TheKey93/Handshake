@@ -1,5 +1,6 @@
 package com.ece.handshake.views;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
@@ -16,34 +17,37 @@ import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.model.data.SMAccount;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHolder> {
+    private final Context mContext;
     private ArrayList<SMAccount> mDataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mPlatformImage;
-        private ProfilePictureView mProfileImage;
+        private CircleImageView mPlatformImage;
+        private CircleImageView mProfileImage;
         private TextView mPlatformName;
         private TextView mAccountUserId;
-        private CardView mCardView;
 
         public ViewHolder(View v) {
             super(v);
-            mPlatformImage = (ImageView) v.findViewById(R.id.platform_image);
-            mProfileImage = (ProfilePictureView) v.findViewById(R.id.profile_image);
+            mPlatformImage = (CircleImageView) v.findViewById(R.id.platform_image);
+            mProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
             mAccountUserId = (TextView) v.findViewById(R.id.account_user_id);
-            mCardView = (CardView) v.findViewById(R.id.card_view);
         }
     }
 
-    public AccountsAdapter(ArrayList<SMAccount> myDataset) {
+    public AccountsAdapter(final Context context, ArrayList<SMAccount> myDataset) {
         mDataset = myDataset;
+        mContext = context;
     }
 
     @Override
@@ -60,9 +64,8 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         viewHolder.mPlatformName.setText(account.getPlatformName());
         viewHolder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
 
-        Profile profile = Profile.getCurrentProfile();
-        if (profile != null)
-            viewHolder.mProfileImage.setProfileId(profile.getId());
+        Picasso.with(mContext).load(account.getProfilePicUri()).into(viewHolder.mProfileImage);
+
     }
 
     @Override

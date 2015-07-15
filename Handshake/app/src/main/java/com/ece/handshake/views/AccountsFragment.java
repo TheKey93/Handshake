@@ -66,7 +66,7 @@ public class AccountsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ArrayList<SMAccount> accounts = mPresenter.getConnectedAccounts();
 
-        mAdapter = new AccountsAdapter(accounts);
+        mAdapter = new AccountsAdapter(getActivity(), accounts);
         mRecyclerView.setAdapter(mAdapter);
     }
 }

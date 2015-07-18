@@ -1,20 +1,26 @@
 package com.ece.handshake.views;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.ece.handshake.R;
 import com.ece.handshake.helper.GPSTracker;
 import com.ece.handshake.helper.JSONParser;
 import com.ece.handshake.model.db.MapsContract;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -28,83 +34,74 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MapsFragment extends FragmentActivity {
+
+public class GMapsFragment extends Fragment {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private ProgressDialog pDialog;
     private static double latitude, longitude;
+    private MapView mMapView;
 
     JSONParser jParser = new JSONParser();
     JSONArray locations = null;
     GPSTracker gps;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        gps = new GPSTracker(this);
+        gps = new GPSTracker(getActivity());
         if (gps.canGetLocation()) {
             latitude = gps.getLatitude();
             longitude = gps.getLongitude();
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-            setUpMapIfNeeded();
-            Toast.makeText(getApplicationContext(), "After setup map if needed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+            //setUpMapIfNeeded();
             new LoadAllProducts().execute(latitude, longitude);
         } else {
             gps.showSettingsAlert();
         }
     }
 
+
     @Override
-    protected void onResume() {
-        super.onResume();
-        setUpMapIfNeeded();
-    }
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.map_fragment, container, false);
+        mMapView = (MapView) layout.findViewById(R.id.map);
+        mMapView.onCreate(savedInstanceState);
 
-    /**
-     * Sets up the map if it is possible to do so (i.e., the Google Play services APK is correctly
-     * installed) and the map has not already been instantiated.. This will ensure that we only ever
-     * call {@link #setUpMap()} once when {@link #mMap} is not null.
-     * <p/>
-     * If it isn't installed {@link SupportMapFragment} (and
-     * {@link com.google.android.gms.maps.MapView MapView}) will show a prompt for the user to
-     * install/update the Google Play services APK on their device.
-     * <p/>
-     * A user can return to this FragmentActivity after following the prompt and correctly
-     * installing/updating/enabling the Google Play services. Since the FragmentActivity may not
-     * have been completely destroyed during this process (it is likely that it would only be
-     * stopped or paused), {@link #onCreate(Bundle)} may not be called again so we should call this
-     * method in {@link #onResume()} to guarantee that it will be called.
-     */
-    private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
-                Toast.makeText(getApplicationContext(), "In setup map if needed - mMap not null", Toast.LENGTH_LONG).show();
-                setUpMap();
-            }
-        }
-    }
+        mMap = mMapView.getMap();
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.setMyLocationEnabled(true);
 
-    /**
-     * This is where we can add markers or lines, add listeners or move the camera. In this case, we
-     * just add a marker near Africa.
-     * <p/>
-     * This should only be called once and when we are sure that {@link #mMap} is not null.
-     */
-    private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Location"));
+        MapsInitializer.initialize(this.getActivity());
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 10);
+        mMap.animateCamera(cameraUpdate);
+        /*mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Location"));
         Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         CameraUpdate center =
                 CameraUpdateFactory.newLatLng(new LatLng(latitude,
                         longitude));
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
         mMap.moveCamera(center);
-        mMap.animateCamera(zoom);
+        mMap.animateCamera(zoom);*/
+        return layout;
+    }
+
+    @Override
+    public void onResume() {
+        mMapView.onResume();
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
     }
 
     class LoadAllProducts extends AsyncTask<Double, Void, String> {
@@ -117,7 +114,7 @@ public class MapsFragment extends FragmentActivity {
                 latitude = gps.getLatitude();
                 longitude = gps.getLongitude();*/
             //
-            pDialog = new ProgressDialog(MapsFragment.this);
+            pDialog = new ProgressDialog(getActivity());
             pDialog.setMessage("Loading locations. Please wait...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);

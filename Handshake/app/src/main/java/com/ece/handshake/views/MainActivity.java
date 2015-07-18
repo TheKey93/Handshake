@@ -102,7 +102,8 @@ public class MainActivity extends AppCompatActivity
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        //MapFragment frag = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+       // frag.getMapAsync(this);
 
         /************ NFC Setup ****************/
         NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -317,13 +318,14 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.drawer_item_maps:
                 //TODO: Make Settings page
-                Intent i = new Intent(this, MapsFragment.class);
-                startActivity(i);
+               // Intent i = new Intent(this, MapsActivity.class);
+                //startActivity(i);
+                fragmentManager.beginTransaction().replace(R.id.container, new GMapsFragment()).commit();
+
                 break;
             case R.id.drawer_item_settings:
                 //TODO: Make Settings page
                 getFragmentManager().beginTransaction().replace(R.id.container, new PreferencesFragment()).commit();
-
                 break;
             case R.id.drawer_item_logout:
                 //TODO: Logout of gplus and take user to login page

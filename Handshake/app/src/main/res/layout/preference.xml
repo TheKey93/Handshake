@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_marginTop="40dp"
+    android:id="@+id/prefManager"
+    android:padding="40dp"
+    android:key="prefKey"
+    android:title="Settings"
+    >
+    <PreferenceCategory android:title="Search NearBy">
+        <CheckBoxPreference
+            android:key="pref_chk_shareLocation"
+            android:title="@string/pref_chk_shareLocation"
+            android:defaultValue="true"
+            />
+        <CheckBoxPreference
+            android:key="pref_chk_updateLocation"
+            android:title="@string/pref_chk_updateLocation"
+            android:defaultValue="true"
+            />
+        <EditTextPreference
+            android:key="pref_chk_setTimer"
+            android:title="@string/pref_chk_setTimer"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Personal Information">
+        <PreferenceScreen
+            android:key="button_personal_information_key"
+            android:title="@string/personalInformation"
+            android:persistent="false"
+            >
+            <PreferenceCategory android:title="Manage Personal Information">
+                <EditTextPreference
+                    android:key="pref_edit_name"
+                    android:title="@string/pref_edit_name"
+                    />
+                <EditTextPreference
+                    android:key="pref_edit_contact_number"
+                    android:title="@string/pref_edit_contact_number"
+                    />
+                <EditTextPreference
+                    android:key="pref_edit_email"
+                    android:title="@string/pref_edit_email"
+                    />
+                <EditTextPreference
+                    android:key="pref_edit_address"
+                    android:title="@string/pref_edit_address"
+                    />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>

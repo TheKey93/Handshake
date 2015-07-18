@@ -43,6 +43,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.getbase:floatingactionbutton:1.9.0'
     compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.android.support:support-v13:+'
 
     //Third party ui libraries
     compile 'io.karim:materialtabs:2.0.2'

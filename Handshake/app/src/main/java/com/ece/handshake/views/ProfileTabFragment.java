@@ -1,10 +1,10 @@
 package com.ece.handshake.views;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +38,7 @@ public class ProfileTabFragment extends Fragment {
         mViewPager = (ViewPager) layout.findViewById(R.id.view_pager);
         mTabs = (MaterialTabs) layout.findViewById(R.id.tabs);
 
-        mViewPager.setAdapter(new ProfilesPagerAdapter(getActivity().getSupportFragmentManager()));
+        mViewPager.setAdapter(new ProfilesPagerAdapter(getActivity().getFragmentManager()));
         mTabs.setViewPager(mViewPager);
         return layout;
     }

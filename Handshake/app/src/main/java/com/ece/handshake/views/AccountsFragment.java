@@ -1,8 +1,8 @@
 package com.ece.handshake.views;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -52,7 +52,7 @@ public class AccountsFragment extends Fragment {
         addAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentManager fm = getActivity().getFragmentManager();
                 SMDialogFragment addAccountDialog = new SMDialogFragment();
                 addAccountDialog.show(fm, "add_account_fragment");
             }

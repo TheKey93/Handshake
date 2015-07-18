@@ -40,6 +40,8 @@
     <string name="drawer.title.maps">Maps</string>
     <string name="drawer.title.home">Home</string>
 
+    <string name="title_activity_maps">Map</string>
+
     <!-- Profiles Page -->
     <string-array name="profile_tabs">
         <item> Social </item>
@@ -47,5 +49,13 @@
         <item> Custom </item>
     </string-array>
 
+    <string name="personalInformation">Manage Personal Information</string>
+    <string name="pref_edit_name">Name</string>
+    <string name="pref_edit_contact_number">Contact Number</string>
+    <string name="pref_edit_email">Email Address</string>
+    <string name="pref_edit_address">Residential Address</string>
+    <string name="pref_chk_shareLocation">Share Location</string>
+    <string name="pref_chk_updateLocation">Update Location</string>
+    <string name="pref_chk_setTimer">Set Timer</string>
 
 </resources>

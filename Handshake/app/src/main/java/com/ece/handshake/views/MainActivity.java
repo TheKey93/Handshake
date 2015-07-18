@@ -1,5 +1,6 @@
 package com.ece.handshake.views;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
@@ -8,8 +9,8 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.NfcEvent;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         checkIsLoggedIn();
         initPlatforms();
         initCallbacks();
-        getSupportFragmentManager().beginTransaction().replace(R.id.container, new BumpFragment()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.container, new BumpFragment()).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -300,7 +301,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentManager fragmentManager = getFragmentManager();
         switch (menuItem.getItemId()) {
             case R.id.drawer_item_home:
                 fragmentManager.beginTransaction().replace(R.id.container, new BumpFragment()).commit();
@@ -316,9 +317,13 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.drawer_item_maps:
                 //TODO: Make Settings page
+                Intent i = new Intent(this, MapsFragment.class);
+                startActivity(i);
                 break;
             case R.id.drawer_item_settings:
                 //TODO: Make Settings page
+                getFragmentManager().beginTransaction().replace(R.id.container, new PreferencesFragment()).commit();
+
                 break;
             case R.id.drawer_item_logout:
                 //TODO: Logout of gplus and take user to login page
@@ -346,12 +351,17 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
     private void checkIsLoggedIn() {
         if (!SharedPreferencesManager.isUserLoggedIn(this)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+    }
+
+    public String getDeviceId() {
+        final String deviceId = Settings.Secure.getString( this.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
+        return deviceId;
     }
 
 

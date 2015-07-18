@@ -38,6 +38,7 @@
     <string name="drawer.title.profiles">NFC Profiles</string>
     <string name="drawer.title.pending_connections">Pending Connections</string>
     <string name="drawer.title.maps">Maps</string>
+    <string name="drawer.title.home">Home</string>
 
     <!-- Profiles Page -->
     <string-array name="profile_tabs">

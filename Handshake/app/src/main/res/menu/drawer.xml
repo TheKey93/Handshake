@@ -3,21 +3,25 @@
     android:layout_width="wrap_content">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/drawer_item_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/drawer.title.home"/>
+        <item
             android:id="@+id/drawer_item_connected_accounts"
-            android:icon="@drawable/ic_setting_dark"
+            android:icon="@drawable/ic_account_circle"
             android:title="@string/drawer.title.connected_accounts"/>
         <item
-            android:id="@+id/drawer_item_connection_profiles"
-            android:icon="@drawable/ic_setting_dark"
+            android:id="@+id/drawer_item_nfc_profiles"
+            android:icon="@drawable/ic_tap_and_play"
             android:title="@string/drawer.title.profiles"/>
         <item
             android:id="@+id/drawer_item_pending_connections"
-            android:icon="@drawable/ic_setting_dark"
+            android:icon="@drawable/ic_pause_circle_filled"
             android:title="@string/drawer.title.pending_connections">
         </item>
         <item
             android:id="@+id/drawer_item_maps"
-            android:icon="@drawable/ic_setting_dark"
+            android:icon="@drawable/ic_person_pin"
             android:title="@string/drawer.title.maps">
         </item>
         <item
@@ -26,12 +30,12 @@
             android:title="@string/drawer.title.settings"/>
         <item
             android:id="@+id/drawer_item_logout"
-            android:icon="@drawable/ic_setting_dark"
+            android:icon="@drawable/ic_power_settings"
             android:title="@string/drawer.title.logout"/>
 
         <item
             android:id="@+id/drawer_item_help_feedback"
             android:title="@string/drawer.title.help_feedback"
-            android:icon="@drawable/ic_setting_dark"/>
+            android:icon="@drawable/ic_help"/>
     </group>
 </menu>

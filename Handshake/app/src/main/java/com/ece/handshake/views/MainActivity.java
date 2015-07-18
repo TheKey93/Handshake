@@ -301,10 +301,13 @@ public class MainActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItem.getItemId()) {
+            case R.id.drawer_item_home:
+                fragmentManager.beginTransaction().replace(R.id.container, new AccountsFragment()).commit();
+                break;
             case R.id.drawer_item_connected_accounts:
                 fragmentManager.beginTransaction().replace(R.id.container, new AccountsFragment()).commit();
                 break;
-            case R.id.drawer_item_connection_profiles:
+            case R.id.drawer_item_nfc_profiles:
                 fragmentManager.beginTransaction().replace(R.id.container, new ProfileTabFragment()).commit();
                 break;
             case R.id.drawer_item_pending_connections:

@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         checkIsLoggedIn();
         initPlatforms();
         initCallbacks();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, new BumpFragment()).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -302,7 +303,7 @@ public class MainActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItem.getItemId()) {
             case R.id.drawer_item_home:
-                fragmentManager.beginTransaction().replace(R.id.container, new AccountsFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.container, new BumpFragment()).commit();
                 break;
             case R.id.drawer_item_connected_accounts:
                 fragmentManager.beginTransaction().replace(R.id.container, new AccountsFragment()).commit();
@@ -311,7 +312,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().replace(R.id.container, new ProfileTabFragment()).commit();
                 break;
             case R.id.drawer_item_pending_connections:
-                //TODO: Make Settings page
+                fragmentManager.beginTransaction().replace(R.id.container, new PendingConnectionsFragment()).commit();
                 break;
             case R.id.drawer_item_maps:
                 //TODO: Make Settings page

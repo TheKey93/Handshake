@@ -138,8 +138,8 @@ public class AccountsDataSource {
                 PhoneContact contact = new PhoneContact();
                 contact.setFirstName(c.getString(c.getColumnIndex(PendingConnectionEntry.FIRST_NAME)));
                 contact.setLastName(c.getString(c.getColumnIndex(PendingConnectionEntry.LAST_NAME)));
-                contact.setTime(c.getLong(c.getColumnIndex(PendingConnectionEntry.TIME_ENTERED)));
                 contact.setProfilePicUri(Uri.parse(c.getString(c.getColumnIndex(PendingConnectionEntry.PIC_URI))));
+                contact.setTime(c.getLong(c.getColumnIndex(PendingConnectionEntry.TIME_ENTERED)));
                 list.add(contact);
             }
         }

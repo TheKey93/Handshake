@@ -53,9 +53,7 @@ public class AccountsAdapter extends RecyclerView.Adapter<AccountsAdapter.ViewHo
         viewHolder.mAccountUserId.setText(account.getName());
         viewHolder.mPlatformName.setText(account.getPlatformName());
         viewHolder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
-
         Picasso.with(mContext).load(account.getProfilePicUri()).into(viewHolder.mProfileImage);
-
     }
 
     @Override

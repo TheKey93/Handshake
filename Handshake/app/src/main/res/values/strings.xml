@@ -43,11 +43,14 @@
     <string name="title_activity_maps">Map</string>
 
     <!-- Profiles Page -->
-    <string-array name="profile_tabs">
+    <string-array name="profiles_array">
         <item> Social </item>
         <item> Business </item>
         <item> Custom </item>
     </string-array>
+
+    <string name="bump.nfc.enabled">NFC is enabled. Bump phones to initiate transfer</string>
+    <string name="bump.nfc.disabled">NFC is disabled. Turn on NFC to enable bumping</string>
 
     <string name="personalInformation">Manage Personal Information</string>
     <string name="pref_edit_name">Name</string>

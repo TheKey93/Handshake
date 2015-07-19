@@ -1,8 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <TextView
+        android:id="@+id/select_profile_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="Select Profile"
+        android:textSize="16sp" />
+
+    <Spinner
+        android:id="@+id/active_profile_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/select_profile_tv"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/nfc_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="NFC Disabled"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/enable_nfc_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nfc_status"
+        android:layout_centerHorizontal="true"
+        android:text="Enable NFC"
+        android:visibility="invisible" />
 </RelativeLayout>

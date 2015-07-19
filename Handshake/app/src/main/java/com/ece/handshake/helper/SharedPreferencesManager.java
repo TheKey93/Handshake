@@ -22,16 +22,12 @@ public class SharedPreferencesManager {
     private final static String PROFILE_URI = "ProfileUrl";
     private final static String PROFILE_IMG_URI = "ProfileImgUri";
 
-    private final static String GENERAL_USER_INFO = "GeneralUserInfo";
+    private final static String GENERAL = "GeneralUserInfo";
     private final static String IS_LOGGED_IN = "IsUserLoggedIn";
 
     private final static String FACEBOOK_CONNNECTED = "isFacebookConnected";
-    private final static String TWITTER_CONNNECTED = "isTwitterConnected";
-    private final static String LINKEDIN_CONNNECTED = "isLinkedinConnected";
-    private final static String INSTAGRAM_CONNNECTED = "isInstagramConnected";
-    private final static String PINTEREST_CONNNECTED = "isPinterestConnected";
-    private final static String GOOGLEPLUS_CONNNECTED = "isGooglePlusConnected";
 
+    private final static String ACTIVE_NFC_PROFILE = "activeNfcProfile";
     public static void saveBasicInfo(Context context, Map<String, String> values) {
         SharedPreferences sharedPrefs = context.getSharedPreferences(BASIC_USER_INFO, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -39,19 +35,19 @@ public class SharedPreferencesManager {
         editor.putString(GPLUS_LAST_NAME, values.get(GPLUS_LAST_NAME));
         editor.putString(GPLUS_EMAIL, values.get(GPLUS_EMAIL));
         editor.putString(GPLUS_URL, values.get(GPLUS_URL));
-        editor.commit();
+        editor.apply();
     }
     
     public static boolean isUserLoggedIn(Context context) {
-        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL_USER_INFO, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL, Context.MODE_PRIVATE);
         return sharedPrefs.getBoolean(IS_LOGGED_IN, false);
     }
 
     public static void setIsUserLoggedIn(Context context, boolean isLoggedIn) {
-        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL_USER_INFO, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putBoolean(IS_LOGGED_IN, isLoggedIn);
-        editor.commit();
+        editor.apply();
     }
 
     public static void saveFacebookAccountDetails(Context context, Profile profile) {
@@ -65,14 +61,14 @@ public class SharedPreferencesManager {
         editor.putString(NAME, profile.getName());
         editor.putString(PROFILE_URI, profile.getLinkUri().toString());
         editor.putString(PROFILE_IMG_URI, profile.getProfilePictureUri(40, 40).toString());
-        editor.commit();
+        editor.apply();
     }
 
     private static void setUserHasConnectedPlatform(Context context, String platform) {
-        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL_USER_INFO, Context.MODE_PRIVATE);
+        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putBoolean(platform, true);
-        editor.commit();
+        editor.apply();
     }
 
     /***************************************** Profiles *******************************************/
@@ -80,11 +76,26 @@ public class SharedPreferencesManager {
         SharedPreferences sharedPrefs = context.getSharedPreferences(platform, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putBoolean(profile, isEnabled);
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean isPlatformEnabledForProfile(final Context context, final String platform, final String profile) {
         SharedPreferences sharedPrefs = context.getSharedPreferences(profile, Context.MODE_PRIVATE);
         return sharedPrefs.getBoolean(platform, false);
     }
+
+    /* Bump Page */
+    public static void setActiveNfcProfile(final Context context, final String profile) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putString(ACTIVE_NFC_PROFILE, profile);
+        editor.apply();
+    }
+
+    public static String getActiveNfcProfile(final Context context) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences(GENERAL, Context.MODE_PRIVATE);
+        return sharedPrefs.getString(ACTIVE_NFC_PROFILE, "Social");
+        //TODO: replace hard coded string
+    }
+
 }

@@ -48,7 +48,7 @@ public class ProfileTabFragment extends Fragment {
 
         public ProfilesPagerAdapter(FragmentManager fm) {
             super(fm);
-            tabs = getResources().getStringArray(R.array.profile_tabs);
+            tabs = getResources().getStringArray(R.array.profiles_array);
         }
 
         @Override
@@ -104,7 +104,7 @@ public class ProfileTabFragment extends Fragment {
             String currentProfile = "";
 
             if (bundle != null)
-                currentProfile = getResources().getStringArray(R.array.profile_tabs)[bundle.getInt(POSITION)];
+                currentProfile = getResources().getStringArray(R.array.profiles_array)[bundle.getInt(POSITION)];
 
             ArrayList<SMAccount> accounts = presenter.getConnectedAccounts();
 

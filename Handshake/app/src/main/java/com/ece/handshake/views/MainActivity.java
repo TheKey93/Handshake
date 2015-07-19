@@ -317,11 +317,7 @@ public class MainActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().replace(R.id.container, new PendingConnectionsFragment()).commit();
                 break;
             case R.id.drawer_item_maps:
-                //TODO: Make Settings page
-               // Intent i = new Intent(this, MapsActivity.class);
-                //startActivity(i);
                 fragmentManager.beginTransaction().replace(R.id.container, new GMapsFragment()).commit();
-
                 break;
             case R.id.drawer_item_settings:
                 //TODO: Make Settings page

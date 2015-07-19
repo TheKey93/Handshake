@@ -2,6 +2,7 @@ package com.ece.handshake.views;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -73,8 +75,14 @@ public class GMapsFragment extends Fragment {
         mMap.setMyLocationEnabled(true);
 
         MapsInitializer.initialize(this.getActivity());
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(latitude, longitude), 10);
+        LatLng latLng = new LatLng(latitude, longitude);
+
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
         mMap.animateCamera(cameraUpdate);
+
+        //TODO: Replace distance with user settings.
+        mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLUE));
+
         /*mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Location"));
         Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         CameraUpdate center =

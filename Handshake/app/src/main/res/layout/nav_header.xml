@@ -20,6 +20,7 @@
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:text="Zeki Sherif"
             />
 
         <TextView
@@ -31,6 +32,7 @@
             android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:textStyle="normal"
+            android:text="zeki.sherif@gmail.com"
             />
     </LinearLayout>
     <de.hdodenhof.circleimageview.CircleImageView
@@ -39,5 +41,6 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="38dp"
         android:id="@+id/circleView"
+        android:src="@drawable/blank_person"
         />
 </RelativeLayout>

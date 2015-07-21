@@ -3,6 +3,7 @@ package com.ece.handshake.presenters;
 import android.content.Context;
 import android.content.res.Resources;
 
+import com.ece.handshake.model.data.Connection;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsDataSource;
 

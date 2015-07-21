@@ -36,6 +36,10 @@ public class NewAccountPresenter implements INewAccountPresenter {
         this.resume();
     }
 
+    public Context getContext() {
+        return mContext;
+    }
+
     @Override
     public void connectAccount(String platform) {
         if (platform.equals(res.getString(R.string.platform_name_facebook))) {

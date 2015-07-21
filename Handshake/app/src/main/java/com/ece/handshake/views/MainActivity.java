@@ -2,6 +2,9 @@ package com.ece.handshake.views;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.nfc.NdefMessage;
@@ -15,6 +18,8 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
@@ -28,6 +33,8 @@ import com.ece.handshake.helper.SharedPreferencesManager;
 import com.ece.handshake.helper.UriDeserializer;
 import com.ece.handshake.helper.UriSerializer;
 import com.ece.handshake.model.data.Connection;
+import com.ece.handshake.model.data.NfcTransfer;
+import com.ece.handshake.model.data.PhoneContact;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsDataSource;
 import com.facebook.AccessToken;
@@ -41,6 +48,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -50,7 +58,10 @@ import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 import com.twitter.sdk.android.core.models.User;
 
+import java.lang.reflect.Type;
 import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -87,6 +98,7 @@ public class MainActivity extends AppCompatActivity
         checkIsLoggedIn();
         initPlatforms();
         initCallbacks();
+
         getFragmentManager().beginTransaction().replace(R.id.container, new BumpFragment()).commit();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -122,14 +134,17 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Profile prof2 = Profile.getCurrentProfile();
                 mProfileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
                         Profile.setCurrentProfile(newProfile);
-                        Toast.makeText(getApplicationContext(), "Succesfull Facebook Login", Toast.LENGTH_LONG).show();
-                        Profile profile = Profile.getCurrentProfile();
-                        SMAccount account = new SMAccount(profile.getFirstName(), profile.getLastName(), getString(R.string.platform_name_facebook), profile.getLinkUri(), profile.getProfilePictureUri(64, 64), AccessToken.getCurrentAccessToken().getToken());
-                        EventBus.getDefault().post(new NewAccountEvent(account));
+                        if (newProfile != null) {
+                            Toast.makeText(getApplicationContext(), "Succesfull Facebook Login", Toast.LENGTH_LONG).show();
+                            Profile profile = Profile.getCurrentProfile();
+                            SMAccount account = new SMAccount(profile.getFirstName(), profile.getLastName(), getString(R.string.platform_name_facebook), profile.getLinkUri(), profile.getProfilePictureUri(64, 64), AccessToken.getCurrentAccessToken().getToken());
+                            EventBus.getDefault().post(new NewAccountEvent(account));
+                        }
                         this.stopTracking();
                     }
                 };
@@ -210,8 +225,13 @@ public class MainActivity extends AppCompatActivity
     public NdefMessage createNdefMessage(NfcEvent event) {
         AccountsDataSource source = new AccountsDataSource(this);
         ArrayList<SMAccount> accounts = source.getConnectedAccounts();
+
+        PhoneContact contact = new PhoneContact("Zeki", "Sherif", "5195691196", "zsherif@gmail.com", null);
+        NfcTransfer transfer = new NfcTransfer(accounts, contact);
+
+
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriSerializer()).create();
-        String data = gson.toJson(accounts);
+        String data = gson.toJson(transfer);
 
         return new NdefMessage(
                 new NdefRecord[] { createMimeRecord("application/vnd.com.ece.handshake.beam", data.getBytes())
@@ -275,18 +295,24 @@ public class MainActivity extends AppCompatActivity
         // record 0 contains the MIME type, record 1 is the AAR, if present
         System.out.println(new String(msg.getRecords()[0].getPayload()));
 
-        /*Intent newContactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
-        newContactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-        newContactIntent.putExtra(ContactsContract.Intents.Insert.NAME, new String(msg.getRecords()[0].getPayload()));
-        startActivity(newContactIntent);*/
+
         String data = new String(msg.getRecords()[0].getPayload());
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriDeserializer()).create();
 
-        ArrayList<Connection> pendingConnections = new ArrayList<>();
-        pendingConnections.addAll(Arrays.asList((gson.fromJson(data, SMAccount[].class))));
-        AccountsDataSource source = new AccountsDataSource(this);
-        source.insertPendingConnection(pendingConnections);
+        Type fooType = new TypeToken<NfcTransfer>() {}.getType();
 
+        NfcTransfer recievedTransfer = gson.fromJson(data, fooType);
+
+        //ArrayList<Connection> pendingConnections = new ArrayList<>();
+        //pendingConnections.addAll(Arrays.asList((gson.fromJson(data, Connection[].class))));
+        /*AccountsDataSource source = new AccountsDataSource(this);
+        source.insertPendingConnection(pendingConnections);*/
+        AccountsDataSource source = new AccountsDataSource(this);
+        ArrayList<Connection> connections = new ArrayList<>();
+        connections.addAll(recievedTransfer.accounts);
+        connections.add(recievedTransfer.contact);
+        source.insertPendingConnection(connections);
+        //int i = 4;
     }
 
     /**
@@ -363,7 +389,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    /*private void facebookHash() {
+    private void facebookHash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.ece.handshake",
@@ -376,6 +402,7 @@ public class MainActivity extends AppCompatActivity
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException ignored) {
 
         }
-    }*/
+
+    }
 
 }

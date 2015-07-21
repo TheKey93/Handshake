@@ -12,21 +12,24 @@ import android.widget.TextView;
 import com.ece.handshake.helper.MediaPlatformHelper;
 import com.ece.handshake.R;
 import com.ece.handshake.presenters.NewAccountPresenter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class NewAccountAdapter extends RecyclerView.Adapter<NewAccountAdapter.ViewHolder> {
     private ArrayList<String> mDataset;
-    private NewAccountPresenter presenter;
+    private NewAccountPresenter mPresenter;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView mPlatformImage;
+        private CircleImageView mPlatformImage;
         private TextView mPlatformName;
         private RelativeLayout mRow;
 
         public ViewHolder(View v) {
             super(v);
-            mPlatformImage = (ImageView) v.findViewById(R.id.platform_image);
+            mPlatformImage = (CircleImageView) v.findViewById(R.id.platform_image);
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
             mRow = (RelativeLayout) v.findViewById(R.id.row);
         }
@@ -34,7 +37,7 @@ public class NewAccountAdapter extends RecyclerView.Adapter<NewAccountAdapter.Vi
 
     public NewAccountAdapter(ArrayList<String> myDataset, Context context) {
         mDataset = myDataset;
-        presenter = new NewAccountPresenter(context);
+        mPresenter = new NewAccountPresenter(context);
     }
 
     @Override
@@ -52,7 +55,7 @@ public class NewAccountAdapter extends RecyclerView.Adapter<NewAccountAdapter.Vi
         holder.mRow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.connectAccount(platform);
+                mPresenter.connectAccount(platform);
             }
         });
     }

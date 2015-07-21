@@ -3,6 +3,7 @@ package com.ece.handshake.presenters;
 import android.content.Context;
 
 import com.ece.handshake.helper.SharedPreferencesManager;
+import com.ece.handshake.model.data.Connection;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.model.db.AccountsDataSource;
 import com.ece.handshake.views.IProfilesView;

@@ -54,13 +54,16 @@ public class AccountsDataSource {
                 values.put(PendingConnectionEntry.TOKEN, account.getAccessToken());
                 values.put(PendingConnectionEntry.TIME_ENTERED, currentTime);
                 values.put(PendingConnectionEntry.IS_PHONE_CONTACT, 0);
-            } else {
+            } else if (connection instanceof PhoneContact){
                 PhoneContact contact = (PhoneContact) connection;
                 values.put(PendingConnectionEntry.FIRST_NAME, contact.getFirstName());
                 values.put(PendingConnectionEntry.LAST_NAME, contact.getLastName());
-                values.put(PendingConnectionEntry.PIC_URI, contact.getProfilePicUri().toString());
+                if (contact.getProfilePicUri() != null) {
+                    values.put(PendingConnectionEntry.PIC_URI, contact.getProfilePicUri().toString());
+
+                }
                 values.put(PendingConnectionEntry.TIME_ENTERED, currentTime);
-                values.put(PendingConnectionEntry.IS_PHONE_CONTACT, 0);
+                values.put(PendingConnectionEntry.IS_PHONE_CONTACT, 1);
             }
             db.insertOrThrow(PendingConnectionEntry.TABLE_NAME, null, values);
         }
@@ -105,8 +108,8 @@ public class AccountsDataSource {
     public ArrayList<Connection> getPendingConnections() {
         db = dbHelper.getReadableDatabase();
 
-        String[] projection = {PendingConnectionEntry.FIRST_NAME, PendingConnectionEntry.LAST_NAME, PendingConnectionEntry.LINK_URI, PendingConnectionEntry.PLATFORM_NAME,
-                PendingConnectionEntry.PIC_URI, PendingConnectionEntry.TOKEN, PendingConnectionEntry.TIME_ENTERED};
+        String[] projection = {PendingConnectionEntry.FIRST_NAME, PendingConnectionEntry.LAST_NAME, PendingConnectionEntry.PLATFORM_NAME, PendingConnectionEntry.LINK_URI,
+                PendingConnectionEntry.PIC_URI, PendingConnectionEntry.TOKEN, PendingConnectionEntry.TIME_ENTERED, PendingConnectionEntry.IS_PHONE_CONTACT};
 
         String sortOrder = PendingConnectionEntry.TIME_ENTERED + " DESC";
 
@@ -129,16 +132,25 @@ public class AccountsDataSource {
                 account.setFirstName(c.getString(c.getColumnIndex(PendingConnectionEntry.FIRST_NAME)));
                 account.setLastName(c.getString(c.getColumnIndex(PendingConnectionEntry.LAST_NAME)));
                 account.setPlatformName(c.getString(c.getColumnIndex(PendingConnectionEntry.PLATFORM_NAME)));
-                account.setLinkUri(Uri.parse(c.getString(c.getColumnIndex(PendingConnectionEntry.LINK_URI))));
-                account.setProfilePicUri(Uri.parse(c.getString(c.getColumnIndex(PendingConnectionEntry.PIC_URI))));
+                //if (c.getString(c.getColumnIndex(PendingConnectionEntry.LINK_URI)) != null && !c.getString(c.getColumnIndex(PendingConnectionEntry.LINK_URI)).isEmpty())
+                String link = c.getString(c.getColumnIndex(PendingConnectionEntry.LINK_URI));
+                String prof = c.getString(c.getColumnIndex(PendingConnectionEntry.PIC_URI));
+
+                if (!link.contains("http://") && !link.contains("https://"))
+                    link = "http://" + link;
+                account.setLinkUri(Uri.parse(link));
+                account.setProfilePicUri(Uri.parse(prof));
                 account.setAccessToken(c.getString(c.getColumnIndex(PendingConnectionEntry.TOKEN)));
+
                 account.setTime(c.getLong(c.getColumnIndex(PendingConnectionEntry.TIME_ENTERED)));
                 list.add(account);
             } else {
                 PhoneContact contact = new PhoneContact();
                 contact.setFirstName(c.getString(c.getColumnIndex(PendingConnectionEntry.FIRST_NAME)));
                 contact.setLastName(c.getString(c.getColumnIndex(PendingConnectionEntry.LAST_NAME)));
-                contact.setProfilePicUri(Uri.parse(c.getString(c.getColumnIndex(PendingConnectionEntry.PIC_URI))));
+                final String profilePicUri = c.getString(c.getColumnIndex(PendingConnectionEntry.PIC_URI));
+                if (profilePicUri != null)
+                    contact.setProfilePicUri(Uri.parse(profilePicUri));
                 contact.setTime(c.getLong(c.getColumnIndex(PendingConnectionEntry.TIME_ENTERED)));
                 list.add(contact);
             }

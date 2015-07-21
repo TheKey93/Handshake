@@ -1,9 +1,13 @@
 package com.ece.handshake.views;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ece.handshake.R;
@@ -61,23 +65,41 @@ public class PendingConnectionsAdapter extends RecyclerView.Adapter<RecyclerView
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Connection connection = mDataset.get(position);
 
-        if (viewHolder.getItemViewType() == 0) {
+        if (getItemViewType(position) == 0) {
             SMAccountViewHolder holder = (SMAccountViewHolder) viewHolder;
-            SMAccount account = (SMAccount) connection;
-
+            final SMAccount account = (SMAccount) connection;
             holder.mPlatformName.setText(account.getPlatformName());
             holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
             holder.mAccountUserId.setText(account.getName());
             holder.mPlatformName.setText(account.getPlatformName());
             holder.mPlatformImage.setImageDrawable(MediaPlatformHelper.getAccountImageResource(account.getPlatformName()));
             Picasso.with(mPresenter.getContext()).load(account.getProfilePicUri()).into(holder.mProfileImage);
+            holder.mRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(Intent.ACTION_VIEW, account.getLinkUri());
+                    mPresenter.getContext().startActivity(i);
+                }
+            });
         } else {
             ContactViewHolder holder = (ContactViewHolder) viewHolder;
-            PhoneContact contact = (PhoneContact) connection;
+            final PhoneContact contact = (PhoneContact) connection;
 
             holder.mContactName.setText(contact.getName());
+            //holder.mContactPhoneNumber.setText(contact.getPhoneNumber());
             holder.mContactPhoneNumber.setText(contact.getPhoneNumber());
-            Picasso.with(mPresenter.getContext()).load(contact.getProfilePicUri()).into(holder.mContactPhoto);
+            //Picasso.with(mPresenter.getContext()).load(contact.getProfilePicUri()).into(holder.mContactPhoto);
+            holder.mRow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent newContactIntent = new Intent(ContactsContract.Intents.Insert.ACTION);
+                    newContactIntent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+                    newContactIntent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
+                    newContactIntent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getPhoneNumber());
+                    mPresenter.getContext().startActivity(newContactIntent);
+                }
+            });
         }
     }
 
@@ -91,6 +113,7 @@ public class PendingConnectionsAdapter extends RecyclerView.Adapter<RecyclerView
         private CircleImageView mProfileImage;
         private TextView mPlatformName;
         private TextView mAccountUserId;
+        private RelativeLayout mRow;
 
         public SMAccountViewHolder(View v) {
             super(v);
@@ -98,6 +121,8 @@ public class PendingConnectionsAdapter extends RecyclerView.Adapter<RecyclerView
             mProfileImage = (CircleImageView) v.findViewById(R.id.profile_image);
             mPlatformName = (TextView) v.findViewById(R.id.platform_name);
             mAccountUserId = (TextView) v.findViewById(R.id.name);
+            mRow = (RelativeLayout) v.findViewById(R.id.pending_connection_row);
+
         }
     }
 
@@ -105,12 +130,14 @@ public class PendingConnectionsAdapter extends RecyclerView.Adapter<RecyclerView
         private CircleImageView mContactPhoto;
         private TextView mContactName;
         private TextView mContactPhoneNumber;
+        private RelativeLayout mRow;
 
         public ContactViewHolder(View v) {
             super(v);
             mContactPhoto = (CircleImageView) v.findViewById(R.id.profile_image);
             mContactName = (TextView) v.findViewById(R.id.name);
             mContactPhoneNumber = (TextView) v.findViewById(R.id.phone_number);
+            mRow = (RelativeLayout) v.findViewById(R.id.pending_connection_row);
         }
     }
 }

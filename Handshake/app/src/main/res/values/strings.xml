@@ -60,5 +60,6 @@
     <string name="pref_chk_shareLocation">Share Location</string>
     <string name="pref_chk_updateLocation">Update Location</string>
     <string name="pref_chk_setTimer">Set Timer</string>
+    <string name="login_title">Handshake</string>
 
 </resources>

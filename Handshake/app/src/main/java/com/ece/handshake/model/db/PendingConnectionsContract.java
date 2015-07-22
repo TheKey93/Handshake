@@ -14,6 +14,9 @@ public class PendingConnectionsContract {
         public static final String PIC_URI = "profilePicUri";
         public static final String TOKEN = "accessToken";
         public static final String TIME_ENTERED = "dateAdded";
+        public static final String PHONE_NUMBER = "phoneNumber";
+        public static final String EMAIL_ADDRESS = "emailAddress";
+
         public static final String IS_PHONE_CONTACT = "isPhoneContact";
     }
 }

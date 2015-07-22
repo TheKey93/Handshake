@@ -18,8 +18,8 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/platform_name"
-        android:layout_toRightOf="@id/platform_name" />
+        android:layout_toEndOf="@id/profile_image"
+        android:layout_toRightOf="@id/profile_image" />
 
     <TextView
         android:id="@+id/phone_number"
@@ -28,6 +28,6 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
-        android:layout_toEndOf="@id/platform_name"
-        android:layout_toRightOf="@id/platform_name" />
+        android:layout_toEndOf="@id/name"
+        android:layout_toRightOf="@id/name" />
 </RelativeLayout>

@@ -2,7 +2,8 @@
     android:layout_width="match_parent"
     android:layout_height="192dp"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/cover">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="192dp"
@@ -20,7 +21,7 @@
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:text="Zeki Sherif"
+            android:text="blah blah"
             />
 
         <TextView
@@ -32,7 +33,7 @@
             android:layout_marginTop="5dp"
             android:textSize="14sp"
             android:textStyle="normal"
-            android:text="zeki.sherif@gmail.com"
+            android:text="blah.sherif@gmail.com"
             />
     </LinearLayout>
     <de.hdodenhof.circleimageview.CircleImageView
@@ -40,7 +41,6 @@
         android:layout_height="70dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="38dp"
-        android:id="@+id/circleView"
-        android:src="@drawable/blank_person"
+        android:id="@+id/profilePic"
         />
 </RelativeLayout>

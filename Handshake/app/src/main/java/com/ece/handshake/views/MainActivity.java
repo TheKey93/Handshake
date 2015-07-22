@@ -6,6 +6,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -23,6 +26,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ece.handshake.events.NewAccountEvent;
@@ -46,9 +51,15 @@ import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -66,23 +77,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        NfcAdapter.CreateNdefMessageCallback{
+        NfcAdapter.CreateNdefMessageCallback, GoogleApiClient.ConnectionCallbacks{
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "SScUHc4jfNsporiWTQcKMerBx";
     private static final String TWITTER_SECRET = "acMW4LyCZpcL0AWGmgfu1MhYkVMQM2ETn7KCeuzKygD2JC1DIi";
 
+    private GoogleApiClient mGoogleApiClient;
 
     public CallbackManager mCallbackManager;
 
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private NavigationView mNavView;
     private void initPlatforms() {
         FacebookSdk.sdkInitialize(this);
 
@@ -108,8 +122,8 @@ public class MainActivity extends AppCompatActivity
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
         mDrawer.setDrawerListener(mDrawerToggle);
 
-        NavigationView navView = (NavigationView) findViewById(R.id.navigation);
-        navView.setNavigationItemSelectedListener(this);
+        mNavView = (NavigationView) findViewById(R.id.navigation);
+        mNavView.setNavigationItemSelectedListener(this);
 
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -135,6 +149,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Profile prof2 = Profile.getCurrentProfile();
+
                 mProfileTracker = new ProfileTracker() {
                     @Override
                     protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
@@ -143,13 +158,14 @@ public class MainActivity extends AppCompatActivity
                             Toast.makeText(getApplicationContext(), "Succesfull Facebook Login", Toast.LENGTH_LONG).show();
                             Profile profile = Profile.getCurrentProfile();
                             SMAccount account = new SMAccount(profile.getFirstName(), profile.getLastName(), getString(R.string.platform_name_facebook), profile.getLinkUri(), profile.getProfilePictureUri(64, 64), AccessToken.getCurrentAccessToken().getToken());
-                            EventBus.getDefault().post(new NewAccountEvent(account));
+                           // EventBus.getDefault().post(new NewAccountEvent(account));
+                            addAccount(account);
+
                         }
                         this.stopTracking();
                     }
                 };
                 mProfileTracker.startTracking();
-
             }
 
             @Override
@@ -177,6 +193,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void addAccount(SMAccount account) {
+        AccountsDataSource source = new AccountsDataSource(this);
+        source.insertConnectedAccount(account);
+    }
+
     TwitterLoginButton mTwitterLoginButton;
 
     @SuppressWarnings("unused")
@@ -202,7 +223,8 @@ public class MainActivity extends AppCompatActivity
                         final Uri profileUri = Uri.parse(String.format("twitter://user?user_id=%s", Long.toString(user.getId())));
                         final Uri profilePicUri = Uri.parse(user.profileImageUrl);
                         SMAccount account = new SMAccount(firstName, lastName, getString(R.string.platform_name_twitter), profileUri, profilePicUri, "");
-                        EventBus.getDefault().post(new NewAccountEvent(account));
+                        addAccount(account);
+                        //EventBus.getDefault().post(new NewAccountEvent(account));
                     }
 
                     @Override
@@ -380,6 +402,12 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
         }
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addApi(Plus.API)
+                .addScope(new Scope("profile"))
+                .build();
+        mGoogleApiClient.connect();
     }
 
     public String getDeviceId() {
@@ -405,4 +433,42 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onConnected(Bundle bundle) {
+        final Person person = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+
+        CircleImageView profilePic = (CircleImageView) mNavView.findViewById(R.id.profilePic);
+        TextView email = (TextView) mNavView.findViewById(R.id.email);
+        TextView name = (TextView) mNavView.findViewById(R.id.name);
+        final RelativeLayout background = (RelativeLayout) mNavView.findViewById(R.id.cover);
+
+        Person.Cover cover = person.getCover();
+        if(person.hasCover()) {
+            Picasso.with(this).load(person.getCover().getCoverPhoto().getUrl()).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    background.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+                }
+
+                @Override
+                public void onBitmapFailed(Drawable errorDrawable) {
+
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        }
+
+        name.setText(person.getName().getGivenName() + person.getName().getFamilyName());
+        email.setText(Plus.AccountApi.getAccountName(mGoogleApiClient));
+        Picasso.with(this).load(person.getImage().getUrl()).into(profilePic);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
 }

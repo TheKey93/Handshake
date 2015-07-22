@@ -31,6 +31,8 @@ public class DBHelper extends SQLiteOpenHelper{
                     PendingConnectionEntry.LINK_URI + " TEXT, " +
                     PendingConnectionEntry.PIC_URI + " TEXT, " +
                     PendingConnectionEntry.TOKEN + " TEXT, " +
+                    PendingConnectionEntry.EMAIL_ADDRESS + " TEXT, " +
+                    PendingConnectionEntry.PHONE_NUMBER + " TEXT, " +
                     PendingConnectionEntry.TIME_ENTERED + " INTEGER, " +
                     PendingConnectionEntry.IS_PHONE_CONTACT + " INTEGER" +
                     ")";

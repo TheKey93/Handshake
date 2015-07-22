@@ -62,6 +62,8 @@ public class AccountsDataSource {
                     values.put(PendingConnectionEntry.PIC_URI, contact.getProfilePicUri().toString());
 
                 }
+                values.put(PendingConnectionEntry.PHONE_NUMBER, contact.getPhoneNumber());
+                values.put(PendingConnectionEntry.EMAIL_ADDRESS, contact.getEmailAddress());
                 values.put(PendingConnectionEntry.TIME_ENTERED, currentTime);
                 values.put(PendingConnectionEntry.IS_PHONE_CONTACT, 1);
             }
@@ -109,7 +111,7 @@ public class AccountsDataSource {
         db = dbHelper.getReadableDatabase();
 
         String[] projection = {PendingConnectionEntry.FIRST_NAME, PendingConnectionEntry.LAST_NAME, PendingConnectionEntry.PLATFORM_NAME, PendingConnectionEntry.LINK_URI,
-                PendingConnectionEntry.PIC_URI, PendingConnectionEntry.TOKEN, PendingConnectionEntry.TIME_ENTERED, PendingConnectionEntry.IS_PHONE_CONTACT};
+                PendingConnectionEntry.PIC_URI, PendingConnectionEntry.TOKEN, PendingConnectionEntry.TIME_ENTERED, PendingConnectionEntry.IS_PHONE_CONTACT, PendingConnectionEntry.PHONE_NUMBER, PendingConnectionEntry.EMAIL_ADDRESS};
 
         String sortOrder = PendingConnectionEntry.TIME_ENTERED + " DESC";
 
@@ -152,6 +154,8 @@ public class AccountsDataSource {
                 if (profilePicUri != null)
                     contact.setProfilePicUri(Uri.parse(profilePicUri));
                 contact.setTime(c.getLong(c.getColumnIndex(PendingConnectionEntry.TIME_ENTERED)));
+                contact.setEmailAddress(c.getString(c.getColumnIndex(PendingConnectionEntry.EMAIL_ADDRESS)));
+                contact.setPhoneNumber(c.getString(c.getColumnIndex(PendingConnectionEntry.PHONE_NUMBER)));
                 list.add(contact);
             }
         }

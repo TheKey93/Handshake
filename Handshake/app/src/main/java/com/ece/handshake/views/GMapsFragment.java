@@ -2,7 +2,6 @@ package com.ece.handshake.views;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,14 +14,11 @@ import com.ece.handshake.R;
 import com.ece.handshake.helper.GPSTracker;
 import com.ece.handshake.helper.JSONParser;
 import com.ece.handshake.model.db.MapsContract;
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -77,11 +73,11 @@ public class GMapsFragment extends Fragment {
         MapsInitializer.initialize(this.getActivity());
         LatLng latLng = new LatLng(latitude, longitude);
 
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 10);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15);
         mMap.animateCamera(cameraUpdate);
 
         //TODO: Replace distance with user settings.
-        mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLUE));
+       // mMap.addCircle(new CircleOptions().center(latLng).radius(1000).strokeColor(Color.BLUE));
 
         /*mMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title("My Location"));
         Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();

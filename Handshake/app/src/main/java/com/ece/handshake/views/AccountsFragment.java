@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.ece.handshake.R;
+import com.ece.handshake.events.PresenterPauseEvent;
+import com.ece.handshake.events.PresenterResumeEvent;
 import com.ece.handshake.model.data.SMAccount;
 import com.ece.handshake.presenters.BasePresenter;
 import com.ece.handshake.presenters.ConnectedAccountsPresenter;
@@ -18,11 +20,14 @@ import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
 import java.util.ArrayList;
 
+import de.greenrobot.event.EventBus;
+
 
 public class AccountsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
+    private final static String PRESENTER_NAME = "NewAccountPresenter";
 
     private ConnectedAccountsPresenter mPresenter;
 
@@ -68,5 +73,17 @@ public class AccountsFragment extends Fragment {
 
         mAdapter = new AccountsAdapter(getActivity(), accounts);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+   /* @Override
+    public void onResume() {
+        EventBus.getDefault().post(new PresenterResumeEvent(PRESENTER_NAME));
+        super.onResume();
+    }*/
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().post(new PresenterPauseEvent(PRESENTER_NAME));
+        super.onStop();
     }
 }

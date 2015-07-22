@@ -25,8 +25,7 @@ import java.util.Arrays;
 import de.greenrobot.event.EventBus;
 
 public class NewAccountPresenter implements INewAccountPresenter {
-    private final static String CLASS_NAME = NewAccountPresenter.class.getClass().getSimpleName();
-
+    private final static String PRESENTER_NAME = "NewAccountPresenter";
     private Context mContext;
     private Resources res;
 
@@ -65,12 +64,12 @@ public class NewAccountPresenter implements INewAccountPresenter {
     }
 
     public void onEvent(PresenterResumeEvent event) {
-        if (event.getClassName().equals(CLASS_NAME))
+        if (event.getClassName().equals(PRESENTER_NAME))
             resume();
     }
 
     public void onEvent(PresenterPauseEvent event) {
-        if (event.getClassName().equals(CLASS_NAME))
+        if (event.getClassName().equals(PRESENTER_NAME))
             pause();
     }
 
